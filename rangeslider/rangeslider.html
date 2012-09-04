@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Range Slider Plugin</title>
+	
+	<!-- jQuery -->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+
+	<!-- Video.js Source Files -->
+	<script src='../src/core.js'></script>
+	<script src='../src/lib.js'></script>
+	<script src='../src/json.js'></script>
+	<script src='../src/events.js'></script>
+
+	<script src='../src/component.js'></script>
+	<script src='../src/player.js'></script>
+	<script src='../src/tech.js'></script>
+	<script src='../src/controls.js'></script>
+
+	<script src='../src/tracks.js'></script>
+
+	<script src='../tech/html5/html5.js'></script>
+	<script src='../tech/flash/flash.js'></script>
+
+	<script src='../src/setup.js'></script>
+	
+	<script>
+		_V_.options.flash.swf = "../tech/flash/video-js.swf"
+	</script>
+	<!-- END Video.js Source Files -->
+	
+	<!-- Video.js Plugins -->
+	<script src="rangeslider.js"></script>
+	<!-- END Plugins -->
+
+	<link rel="stylesheet" type="text/css" href="../design/video-js.css" />
+	<link   href="rangeslider.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+<video id="my_video_1" class="video-js vjs-default-skin" controls preload="auto" width="640" height="264">
+	<!--source src="Incredibles_Teaser.m4v" type='video/mp4'-->
+	<source src="Toy_Story3_Trailer.mp4" type="video/mp4">
+</video>
+
+
+<fieldset style="margin-top: 2em; width: 600px;">
+	<legend>Update Slider Values</legend>
+	Start: <input type="text" id="start_time" /><br/>
+	End: <input type="text" id="end_time" /></br>
+</fieldset>
+</p>
+
+<script>
+(function() {
+	var vid = 'my_video_1';
+
+	var addOptions = { 
+		plugins: 'rangeslider', 
+		techOrder: ['flash', 'html5'] 
+	};
+
+	var onReady = function() {
+		var player = this;
+		var plugin = this.getPlugin('rangeslider');
+
+		var $start_time = $('#start_time');
+		var $end_time = $('#end_time');
+
+		var onChange = function(index) {
+			return function(evt) {
+				var val = parseInt($(this).val(), 10);
+				if(!isNaN(val)) {
+					plugin.setValue(index, val);
+				}
+			};
+		}
+		
+		// update slider on form changes
+		$start_time.bind('keyup', onChange(0));
+		$end_time.bind('keyup', onChange(1));
+		
+		// update the form on slider changes
+		player.on('rangesliderchange', function(event) {
+			var status = plugin.currentStatus();
+
+			$start_time.val(_V_.round(status.values[0], 0));
+			$end_time.val(_V_.round(status.values[1], 0));
+
+			console.log("currentStatus", status);
+		});
+	};
+
+	_V_(vid, addOptions, onReady);
+})();
+</script>
+
+</body
+</html>

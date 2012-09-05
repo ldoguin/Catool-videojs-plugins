@@ -199,43 +199,38 @@
 	 }
 	});
 
-	var RangeSliderStartTime = _V_.Component.extend({
+	var RangeSliderTime = _V_.Component.extend({
 		init: function(player, options){
 			this._super(player, options);
+			console.log("init", this, player, options);
 		},
 		createElement: function(){
 			var el = this._super("div", {
-				className: "vjs-rangeslider-start-time vjs-rangeslider-time-controls vjs-control"
+				className: [this.timeCls, "vjs-rangeslider-time-controls", "vjs-control"].join(' ')
 			});
 
 			this.content = _V_.createElement("div", {
-				className: "vjs-start-time-display",
-				innerHTML: 'Start'
+				className: this.timeDisplayCls,
+				innerHTML: this.timeText
 			});
 
 			el.appendChild(_V_.createElement("div").appendChild(this.content));
 			return el;
 		}
 	});
-	
-	var RangeSliderEndTime = _V_.Component.extend({
-		init: function(player, options){
-			this._super(player, options);
-		},
-		createElement: function(){
-			var el = this._super("div", {
-				className: "vjs-rangeslider-end-time vjs-rangeslider-time-controls vjs-control"
-			});
 
-			this.content = _V_.createElement("div", {
-				className: "vjs-end-time-display",
-				innerHTML: 'End'
-			});
-
-			el.appendChild(_V_.createElement("div").appendChild(this.content));
-			return el;
-		}
+	var RangeSliderStartTime = RangeSliderTime.extend({
+		timeText: 'Start',
+		timeCls: 'vjs-rangeslider-start-time',
+		timeDisplayCls: 'vjs-start-time-display'
 	});
+
+	var RangeSliderEndTime = RangeSliderTime.extend({
+		timeText: 'End',
+		timeCls: 'vjs-rangeslider-end-time',
+		timeDisplayCls: 'vjs-end-time-display'
+	});
+		
 		
 	//-- Plugin
 	var RangeSliderPlugin = function(player, options) {

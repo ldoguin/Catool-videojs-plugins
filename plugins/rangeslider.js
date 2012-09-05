@@ -1,9 +1,22 @@
-(function() {
+/**
+ * This is a simple plugin for the VideoJS player that creates
+ * a basic range slider on top of the seek bar. 
+ *
+ * It was made to facilitate setting IN/OUT points on a video and to feed
+ * these values back to a form via custom player events. It is pure
+ * HTML and CSS so it should work with both the HTML5 and Flash players,
+ * just like the regular controls.
+ *
+ * Usage:
+ */
+(function(global) {
 
-	//---------------------------------------------
-	// VideoJS Components for this plugin
-	
-	var RangeSliderControl = _V_.Component.extend({
+	//-- dependencies
+	var _V_ = global._V_;
+	var Component = _V_.Component;
+
+	//-- define components
+	var RangeSliderControl = Component.extend({
 		options: {
 			components: {
 				'RangeSliderContainer': {}
@@ -16,7 +29,7 @@
 		}
 	});
 
-	var RangeSliderContainer = _V_.Component.extend({
+	var RangeSliderContainer = Component.extend({
 		options: {
 			components: {
 				'left': { 
@@ -65,7 +78,7 @@
 		}
 	});
 
-	var RangeSliderHandle = _V_.Component.extend({
+	var RangeSliderHandle = Component.extend({
 		handleValue: null, // position of handle on bar, number between 0 and 1
 		init: function(player, options) {
 			this._super(player, options);
@@ -157,7 +170,7 @@
 		}
 	});
 	
-	var RangeSliderBar = _V_.Component.extend({
+	var RangeSliderBar = Component.extend({
 		updatePrecision: 2, // for CSS positioning 
 		init: function(player, options) {
 			this._super(player, options);
@@ -199,10 +212,9 @@
 	 }
 	});
 
-	var RangeSliderTime = _V_.Component.extend({
+	var RangeSliderTime = Component.extend({
 		init: function(player, options){
 			this._super(player, options);
-			console.log("init", this, player, options);
 		},
 		createElement: function(){
 			var el = this._super("div", {
@@ -297,6 +309,7 @@
 		}
 	};
 	
+	//-- exports
 	_V_.RangeSliderControl = RangeSliderControl;
 	_V_.RangeSliderContainer = RangeSliderContainer;
 	_V_.RangeSliderBar = RangeSliderBar;
@@ -304,6 +317,8 @@
 	_V_.RangeSliderStartTime = RangeSliderStartTime;
 	_V_.RangeSliderEndTime = RangeSliderEndTime;
 
+	//-- define plugins
 	_V_.registerPlugin('rangeslider', RangeSliderPlugin);
-})();
+
+})(window);
 

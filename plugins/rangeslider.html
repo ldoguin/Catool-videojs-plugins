@@ -47,7 +47,8 @@
 <fieldset style="margin-top: 2em; width: 600px;">
 	<legend>Update Slider Values</legend>
 	Start: <input type="text" id="start_time" /><br/>
-	End: <input type="text" id="end_time" /></br>
+	End: <input type="text" id="end_time" /><br/>
+	<input type="checkbox" id="lock_slider" value="1" /> Lock Slider<br/>
 </fieldset>
 </p>
 
@@ -66,6 +67,7 @@
 
 		var $start_time = $('#start_time');
 		var $end_time = $('#end_time');
+		var $lock_slider = $('#lock_slider');
 
 		var onChange = function(index) {
 			return function(evt) {
@@ -75,6 +77,15 @@
 				}
 			};
 		}
+
+		// change lock status on slider
+		$lock_slider.change(function(event) {
+			var locked = $(this).attr('checked') ? true : false;
+			var action = locked?'lock':'unlock';
+			plugin[action]();
+
+			console.log(action + ' slider handles');
+		});
 		
 		// update slider on form changes
 		$start_time.bind('keyup', onChange(0));

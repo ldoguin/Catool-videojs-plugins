@@ -1,7 +1,7 @@
-.vjs-default-skin div.vjs-rangeslider-control {
+.vjs-default-skin div.videojs-rangeslider-control {
   display: none;
   position: absolute;
-  left: 4.8em; right: 4.8em; /* Leave room for time displays. */
+  left: 0em; right: 0em; /* Leave room for time displays. */
   height: 1.0em; width: auto;
   top: -2.4em; /* Set above the rest of the controls. And leave room for 2px of borders (progress bottom and controls top). */
   border-bottom: 1px solid #1F1F1F;
@@ -22,7 +22,7 @@
 }
 
 /* Box containing double-thumb scrubber. */
-.vjs-default-skin .vjs-rangeslider-holder {
+.vjs-default-skin .videojs-rangeslider-holder {
   position: relative;  /*overflow: hidden;*/
   padding: 0; margin: 0; /* Placement within the progress control item */
   height: 1.0em;
@@ -38,29 +38,29 @@
   background: linear-gradient(top, #111, #262626);
 }
 
-.vjs-default-skin div.vjs-rangeslider-handle {
+.vjs-default-skin div.videojs-rangeslider-handle {
   position: absolute;
   margin-top: 0;
   cursor: pointer !important;
   background-color: transparent;
   z-index: 101; /* in front of the bar */
 }
-.vjs-default-skin div.vjs-rangeslider-handle-left {
+.vjs-default-skin div.videojs-rangeslider-handle-left {
   left: 0;
 }
-.vjs-default-skin div.vjs-rangeslider-handle-right {
+.vjs-default-skin div.videojs-rangeslider-handle-right {
   left: 100%;
 }
-.vjs-default-skin div.vjs-rangeslider-handle-left,
-.vjs-default-skin div.vjs-rangeslider-handle-right {
+.vjs-default-skin div.videojs-rangeslider-handle-left,
+.vjs-default-skin div.videojs-rangeslider-handle-right {
   top: -1em;
 }
-.vjs-default-skin div.vjs-rangeslider-handle-line {
+.vjs-default-skin div.videojs-rangeslider-handle-line {
   width: 1px;
   height: 2.4em;
   background-color: #A69700;
 }
-.vjs-default-skin div.vjs-rangeslider-handle-arrow {
+.vjs-default-skin div.videojs-rangeslider-handle-arrow {
   width: 0;
   height: 0;
   border-left: 1em solid transparent;
@@ -70,7 +70,7 @@
   opacity: 0.8;
 }
 
-.vjs-default-skin div.vjs-rangeslider-bar {
+.vjs-default-skin div.videojs-rangeslider-bar {
   position: absolute;
   height: 1.0em;
   left: 0em;
@@ -88,7 +88,7 @@
   background: linear-gradient(top, #FFE800, #A69700);
 }
 
-.vjs-default-skin .vjs-rangeslider-time-controls {
+.vjs-default-skin .videojs-rangeslider-time-controls {
   display: none;
   position: absolute;
   right: 0;
@@ -114,12 +114,14 @@
 /*  -webkit-box-shadow: 0px -1px 0px 0px rgba(0, 0, 0, 0.15); -moz-box-shadow: 0px -1px 0px 0px rgba(0, 0, 0, 0.15); box-shadow: 0px -1px 0px 0px rgba(0, 0, 0, 0.15);*/
 }
 
-.vjs-default-skin .vjs-rangeslider-start-time {
-  left: 0;
+.vjs-default-skin .videojs-rangeslider-start-time {
+  left: -4.8em;
 }
-.vjs-default-skin .vjs-rangeslider-end-time {
+.vjs-default-skin .videojs-rangeslider-end-time {
+  left: 100%;
 }
 
-.vjs-default-skin .vjs-seek-handle {
+.vjs-default-skin .videojs-seek-handle {
   z-index: 9999;
 }
+

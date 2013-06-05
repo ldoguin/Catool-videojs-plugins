@@ -1,46 +1,23 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-	<title>Range Slider Plugin</title>
-	
-	<!-- jQuery -->
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+  <title>Range Slider Plugin</title>
+  <link href="http://vjs.zencdn.net/4.0.3/video-js.css" rel="stylesheet" type="text/css">
+  <link href="rangeslider.css" rel="stylesheet" type="text/css">
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script src="video.dev.js"></script>
+<script src='rangeslider.js'></script>
+<script src='RangeSliderController.js'></script>
 
-	<!-- Video.js Source Files -->
-	<script src='../video-js/src/core.js'></script>
-	<script src='../video-js/src/lib.js'></script>
-	<script src='../video-js/src/json.js'></script>
-	<script src='../video-js/src/events.js'></script>
-
-	<script src='../video-js/src/component.js'></script>
-	<script src='../video-js/src/player.js'></script>
-	<script src='../video-js/src/tech.js'></script>
-	<script src='../video-js/src/controls.js'></script>
-
-	<script src='../video-js/src/tracks.js'></script>
-
-	<script src='../video-js/tech/html5/html5.js'></script>
-	<script src='../video-js/tech/flash/flash.js'></script>
-
-	<script src='../video-js/src/setup.js'></script>
-	
-	<script>
-		_V_.options.flash.swf = "../video-js/tech/flash/video-js.swf"
-	</script>
-	<!-- END Video.js Source Files -->
-	
-	<!-- Video.js Plugins -->
-	<script src="rangeslider.js"></script>
-	<!-- END Plugins -->
-
-	<link rel="stylesheet" type="text/css" href="../video-js/design/video-js.css" />
-	<link   href="rangeslider.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 
-<video id="my_video_1" class="video-js vjs-default-skin" controls preload="auto" width="640" height="264">
-	<!--source src="Incredibles_Teaser.m4v" type='video/mp4'-->
-	<source src="Toy_Story3_Trailer.mp4" type="video/mp4">
+<video id="video"
+       src="test.webm"
+       class="video-js vjs-default-skin" controls="controls"
+       width="540"
+       height="264">
+
 </video>
 
 
@@ -51,63 +28,48 @@
 	<input type="checkbox" id="lock_slider" value="1" /> Lock Slider<br/>
 </fieldset>
 </p>
-
 <script>
-(function() {
-	var vid = 'my_video_1';
+videojs("video").ready(function(){
 
-	var addOptions = { 
-		plugins: 'rangeslider', 
-		techOrder: ['flash', 'html5'] 
-	};
+      var video = videojs('video');
+      NXVideoInfo.initializeRangeSlider(video, {});
 
-	var onReady = function() {
-		var player = this;
-		var plugin = this.getPlugin('rangeslider');
 
-		var $start_time = $('#start_time');
-		var $end_time = $('#end_time');
-		var $lock_slider = $('#lock_slider');
+var $start_time = jQuery('#start_time');
+var $end_time = jQuery('#end_time');
+var $lock_slider = jQuery('#lock_slider');
 
-		var onChange = function(index) {
-			return function(evt) {
-				var val = parseInt($(this).val(), 10);
-				if(!isNaN(val)) {
-					plugin.setValue(index, val);
-				}
-			};
-		}
+var onChange = function(index) {
+return function(evt) {
+var val = parseInt(jQuery(this).val(), 10);
+if(!isNaN(val)) {
+NXVideoInfo.setValue(index, val);
+}
+};
+}
 
-		// change lock status on slider
-		$lock_slider.change(function(event) {
-			var locked = $(this).attr('checked') ? true : false;
-			var action = locked?'lock':'unlock';
-			plugin[action]();
+// change lock status on slider
+$lock_slider.change(function(event) { 
+var action = this.checked ? 'lock':'unlock';
+NXVideoInfo[action]();
+});
 
-			console.log(action + ' slider handles');
-		});
-		
-		// update slider on form changes
-		$start_time.bind('keyup', onChange(0));
-		$end_time.bind('keyup', onChange(1));
-		
-		// update the form on slider changes
-		player.on('rangesliderchange', function(event) {
-			var status = plugin.currentStatus();
+// update slider on form changes
+$start_time.bind('keyup', onChange(0));
+$end_time.bind('keyup', onChange(1));
 
-			$start_time.val(_V_.round(status.values[0], 0));
-			$end_time.val(_V_.round(status.values[1], 0));
+// update the form on slider changes
+video.on('rangesliderchange', function(event) {
+var status = NXVideoInfo.currentStatus();
 
-			console.log("currentStatus", status);
-		});
+$start_time.val(videojs.round(status.values[0], 0));
+$end_time.val(videojs.round(status.values[1], 0));
+});
 
-		// show the slider
-		plugin.show();
-	};
 
-	_V_(vid, addOptions, onReady);
-})();
+    });
 </script>
 
-</body
+
+</body>
 </html>
